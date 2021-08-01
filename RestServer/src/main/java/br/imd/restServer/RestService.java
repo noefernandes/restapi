@@ -1,27 +1,29 @@
 package br.imd.restServer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 
 import br.imd.model.Message;
 
 @Path("messages")
 public class RestService {
 	ArrayList<Message> messageBuffer;
+	HashMap<String, String> map;
 
 	public RestService() {
-		// TODO Auto-generated constructor stub
 		messageBuffer = new ArrayList<Message>();
+		map = new HashMap<String, String>();
+		map.put("assassinato", "URGENTE");
+		map.put("roubo", "ALTA");
+		map.put("incendio", "URGENTE");
+		map.put("resgate", "ALTA");
 	}
 	
 	@GET
@@ -33,7 +35,9 @@ public class RestService {
 		
 		for(int i = 0; i < messageBuffer.size(); i++) {
 			if(messageBuffer.get(i).getDivision().equals("policia")) {
-				temp.add(messageBuffer.get(i));
+				Message m = messageBuffer.get(i);
+				m.setPriority(map.get(m.getType()));
+				temp.add(m);
 				messageBuffer.remove(i);
 			}
 		}
@@ -50,7 +54,9 @@ public class RestService {
 		
 		for(int i = 0; i < messageBuffer.size(); i++) {
 			if(messageBuffer.get(i).getDivision().equals("bombeiros")) {
-				temp.add(messageBuffer.get(i));
+				Message m = messageBuffer.get(i);
+				m.setPriority(map.get(m.getType()));
+				temp.add(m);
 				messageBuffer.remove(i);
 			}
 		}

@@ -2,7 +2,6 @@ package br.imd.rest;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 import br.imd.rest.expections.RestRequestException;
 
@@ -12,7 +11,7 @@ public class Client {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void receiveMessagePolice() throws RestRequestException {
+	public void receiveMessagePolice() throws RestRequestException, InterruptedException {
 
 		String uri = "http://localhost:8080/RestServer/restapi/messages/send-message-police";
 		Map<String, String> headerParams = new HashMap<String, String>();
@@ -23,6 +22,12 @@ public class Client {
 			String response = HttpUtils.httpGetRequest(uri, headerParams);
 			if(!response.equals("[]")) {
 				System.out.println(response);
+			}
+			
+			try {
+				Thread.sleep(5000);
+			}catch(InterruptedException ex){
+			    Thread.currentThread().interrupt();
 			}
 		}
 	}
@@ -38,6 +43,12 @@ public class Client {
 			String response = HttpUtils.httpGetRequest(uri, headerParams);
 			if(!response.equals("[]")) {
 				System.out.println(response);
+			}
+			
+			try {
+				Thread.sleep(5000);
+			}catch(InterruptedException ex){
+			    Thread.currentThread().interrupt();
 			}
 		}
 	}
