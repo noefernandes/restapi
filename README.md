@@ -1,2 +1,2 @@
 # restapi
-Rest API using Rest Easy
+Rest API using Rest Easy library
